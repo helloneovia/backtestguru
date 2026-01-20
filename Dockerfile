@@ -10,24 +10,24 @@ RUN npm run build
 FROM python:3.11-slim
 WORKDIR /app
 
-# Installer les dÃ©pendances systÃ¨me
+# Installer les dépendances système
 RUN apt-get update && apt-get install -y \
     gcc \
     && rm -rf /var/lib/apt/lists/*
 
-# Copier et installer les dÃ©pendances Python
+# Copier et installer les dépendances Python
 COPY backend/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copier le code backend
 COPY backend/ .
 
-# CrÃ©er le dossier static dans backend et copier le frontend buildÃ©
+# Créer le dossier static dans backend et copier le frontend buildé
 RUN mkdir -p static
 COPY --from=frontend-builder /app/frontend/dist ./static
 
 # Exposer le port
 EXPOSE 8000
 
-# DÃ©marrer l'application
+# Démarrer l'application
 CMD ["python", "main.py"]

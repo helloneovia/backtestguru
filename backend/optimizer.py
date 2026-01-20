@@ -8,18 +8,18 @@ class StrategyOptimizer:
             suggestions.append({
                 "type": "win_rate",
                 "priority": "high",
-                "title": "Taux de rÃ©ussite faible",
-                "description": f"Votre stratÃ©gie a un taux de rÃ©ussite de {results['win_rate']:.1f}%. " +
-                              "ConsidÃ©rez d'ajuster vos critÃ¨res d'entrÃ©e ou d'utiliser un filtre de tendance.",
+                "title": "Taux de réussite faible",
+                "description": f"Votre stratégie a un taux de réussite de {results['win_rate']:.1f}%. " +
+                              "Considérez d'ajuster vos critères d'entrée ou d'utiliser un filtre de tendance.",
                 "recommendation": "Augmenter les seuils RSI (oversold > 25, overbought < 75) ou ajouter un filtre de tendance avec une moyenne mobile plus longue."
             })
         elif results["win_rate"] > 60:
             suggestions.append({
                 "type": "win_rate",
                 "priority": "low",
-                "title": "Excellent taux de rÃ©ussite",
-                "description": f"Votre stratÃ©gie a un taux de rÃ©ussite de {results['win_rate']:.1f}%.",
-                "recommendation": "Vous pourriez augmenter lÃ©gÃ¨rement la taille des positions pour maximiser les profits."
+                "title": "Excellent taux de réussite",
+                "description": f"Votre stratégie a un taux de réussite de {results['win_rate']:.1f}%.",
+                "recommendation": "Vous pourriez augmenter légèrement la taille des positions pour maximiser les profits."
             })
         if results["profit_factor"] < 1.2:
             suggestions.append({
@@ -28,16 +28,16 @@ class StrategyOptimizer:
                 "title": "Profit factor faible",
                 "description": f"Votre profit factor est de {results['profit_factor']:.2f}. " +
                               "Les pertes moyennes sont trop importantes par rapport aux gains.",
-                "recommendation": "RÃ©duire le stop loss ou augmenter le take profit pour amÃ©liorer le ratio risque/rÃ©compense."
+                "recommendation": "Réduire le stop loss ou augmenter le take profit pour améliorer le ratio risque/récompense."
             })
         if results["max_drawdown"] > 30:
             suggestions.append({
                 "type": "drawdown",
                 "priority": "high",
-                "title": "Drawdown maximum Ã©levÃ©",
+                "title": "Drawdown maximum élevé",
                 "description": f"Votre drawdown maximum est de {results['max_drawdown']:.1f}%. " +
-                              "Cela indique une volatilitÃ© importante du capital.",
-                "recommendation": "RÃ©duire la taille des positions ou ajouter un mÃ©canisme de protection du capital."
+                              "Cela indique une volatilité importante du capital.",
+                "recommendation": "Réduire la taille des positions ou ajouter un mécanisme de protection du capital."
             })
         if results["sharpe_ratio"] < 1:
             suggestions.append({
@@ -45,53 +45,53 @@ class StrategyOptimizer:
                 "priority": "medium",
                 "title": "Sharpe ratio sous-optimal",
                 "description": f"Votre Sharpe ratio est de {results['sharpe_ratio']:.2f}. " +
-                              "Le rendement ajustÃ© au risque peut Ãªtre amÃ©liorÃ©.",
-                "recommendation": "Optimiser les paramÃ¨tres de la stratÃ©gie pour rÃ©duire la volatilitÃ© des rendements."
+                              "Le rendement ajusté au risque peut être amélioré.",
+                "recommendation": "Optimiser les paramètres de la stratégie pour réduire la volatilité des rendements."
             })
         if results["total_trades"] < 10:
             suggestions.append({
                 "type": "trades",
                 "priority": "medium",
                 "title": "Peu de trades",
-                "description": f"Seulement {results['total_trades']} trades sur la pÃ©riode. " +
-                              "La stratÃ©gie pourrait Ãªtre trop sÃ©lective.",
-                "recommendation": "Assouplir les critÃ¨res d'entrÃ©e pour gÃ©nÃ©rer plus d'opportunitÃ©s de trading."
+                "description": f"Seulement {results['total_trades']} trades sur la période. " +
+                              "La stratégie pourrait être trop sélective.",
+                "recommendation": "Assouplir les critères d'entrée pour générer plus d'opportunités de trading."
             })
         elif results["total_trades"] > 200:
             suggestions.append({
                 "type": "trades",
                 "priority": "low",
                 "title": "Beaucoup de trades",
-                "description": f"{results['total_trades']} trades sur la pÃ©riode. " +
-                              "La stratÃ©gie pourrait Ãªtre trop active.",
-                "recommendation": "Ajouter des filtres pour rÃ©duire le nombre de trades et amÃ©liorer la qualitÃ©."
+                "description": f"{results['total_trades']} trades sur la période. " +
+                              "La stratégie pourrait être trop active.",
+                "recommendation": "Ajouter des filtres pour réduire le nombre de trades et améliorer la qualité."
             })
         if results["total_return"] < 0:
             suggestions.append({
                 "type": "return",
                 "priority": "critical",
-                "title": "Rendement nÃ©gatif",
-                "description": f"La stratÃ©gie a gÃ©nÃ©rÃ© un rendement de {results['total_return']:.1f}%. " +
-                              "Elle n'est pas profitable sur cette pÃ©riode.",
-                "recommendation": "Revoir complÃ¨tement la stratÃ©gie. ConsidÃ©rez un changement de timeframe, " +
-                                "de symboles, ou de paramÃ¨tres de trading."
+                "title": "Rendement négatif",
+                "description": f"La stratégie a généré un rendement de {results['total_return']:.1f}%. " +
+                              "Elle n'est pas profitable sur cette période.",
+                "recommendation": "Revoir complètement la stratégie. Considérez un changement de timeframe, " +
+                                "de symboles, ou de paramètres de trading."
             })
         elif results["total_return"] > 50:
             suggestions.append({
                 "type": "return",
                 "priority": "low",
                 "title": "Excellent rendement",
-                "description": f"La stratÃ©gie a gÃ©nÃ©rÃ© un rendement de {results['total_return']:.1f}%.",
-                "recommendation": "VÃ©rifiez que les rÃ©sultats ne sont pas dus Ã  la sur-optimisation. " +
-                                "Testez sur d'autres pÃ©riodes pour valider la robustesse."
+                "description": f"La stratégie a généré un rendement de {results['total_return']:.1f}%.",
+                "recommendation": "Vérifiez que les résultats ne sont pas dus à la sur-optimisation. " +
+                                "Testez sur d'autres périodes pour valider la robustesse."
             })
         if results["total_return"] > 0 and results["sharpe_ratio"] > 1:
             suggestions.append({
                 "type": "optimization",
                 "priority": "medium",
-                "title": "Optimisation des paramÃ¨tres",
-                "description": "Votre stratÃ©gie montre des rÃ©sultats prometteurs.",
-                "recommendation": "Testez diffÃ©rentes combinaisons de paramÃ¨tres (SMA, RSI, stop loss/take profit) " +
-                                "pour trouver la configuration optimale. Utilisez une optimisation par grille ou gÃ©nÃ©tique."
+                "title": "Optimisation des paramètres",
+                "description": "Votre stratégie montre des résultats prometteurs.",
+                "recommendation": "Testez différentes combinaisons de paramètres (SMA, RSI, stop loss/take profit) " +
+                                "pour trouver la configuration optimale. Utilisez une optimisation par grille ou génétique."
             })
         return suggestions

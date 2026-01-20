@@ -187,7 +187,7 @@ class BacktestEngine:
                 strategy = parser.parse_description("")
                 return self.run_backtest(strategy)
         except Exception as e:
-            raise Exception(f"Erreur dans l'exÃ©cution du robot: {str(e)}")
+            raise Exception(f"Erreur dans l'exécution du robot: {str(e)}")
     
     def _calculate_rsi(self, prices: pd.Series, period: int = 14) -> pd.Series:
         delta = prices.diff()

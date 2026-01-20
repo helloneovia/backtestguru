@@ -53,22 +53,26 @@ export default function ResultsView({ results }: ResultsViewProps) {
     { label: 'Rendement Total', value: formatPercent(results.total_return), color: results.total_return >= 0 ? 'success.main' : 'error.main' },
     { label: 'Sharpe Ratio', value: results.sharpe_ratio.toFixed(2), color: 'text.primary' },
     { label: 'Drawdown Max', value: formatPercent(-results.max_drawdown), color: 'error.main' },
-    { label: 'Taux de RÃ©ussite', value: formatPercent(results.win_rate), color: 'text.primary' },
+    { label: 'Taux de Réussite', value: formatPercent(results.win_rate), color: 'text.primary' },
     { label: 'Nombre de Trades', value: results.total_trades.toString(), color: 'text.primary' },
     { label: 'Profit Factor', value: results.profit_factor.toFixed(2), color: 'text.primary' }
   ]
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
-      <Grid container spacing={2}>
+      <Grid container spacing={3}>
         {stats.map((stat, index) => (
           <Grid item xs={12} sm={6} md={4} key={index}>
-            <Card>
+            <Card sx={{ 
+              background: 'rgba(30, 41, 59, 0.5)', 
+              backdropFilter: 'blur(10px)',
+              border: '1px solid rgba(255, 255, 255, 0.05)',
+            }}>
               <CardContent>
-                <Typography variant="subtitle2" color="text.secondary" gutterBottom>
+                <Typography variant="subtitle2" color="text.secondary" gutterBottom sx={{ fontSize: '0.875rem', mb: 1 }}>
                   {stat.label}
                 </Typography>
-                <Typography variant="h5" sx={{ color: stat.color, fontWeight: 'bold' }}>
+                <Typography variant="h5" sx={{ color: stat.color, fontWeight: 700, fontSize: '1.75rem' }}>
                   {stat.value}
                 </Typography>
               </CardContent>
@@ -77,43 +81,60 @@ export default function ResultsView({ results }: ResultsViewProps) {
         ))}
       </Grid>
 
-      <Paper sx={{ p: 3 }}>
-        <Typography variant="h6" gutterBottom>
-          Courbe d'Ã‰quitÃ©
+      <Paper sx={{ p: 3, background: 'rgba(30, 41, 59, 0.5)', backdropFilter: 'blur(10px)' }}>
+        <Typography variant="h6" gutterBottom sx={{ fontWeight: 600, mb: 3 }}>
+          Courbe d'Équité
         </Typography>
         <ResponsiveContainer width="100%" height={400}>
           <LineChart data={equityData}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="day" label={{ value: 'Jour', position: 'insideBottom', offset: -5 }} />
-            <YAxis label={{ value: 'Capital (â‚¬)', angle: -90, position: 'insideLeft' }} />
-            <Tooltip formatter={(value: number) => formatCurrency(value)} />
-            <Legend />
+            <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.1)" />
+            <XAxis 
+              dataKey="day" 
+              label={{ value: 'Jour', position: 'insideBottom', offset: -5, fill: '#cbd5e1' }}
+              stroke="#cbd5e1"
+            />
+            <YAxis 
+              label={{ value: 'Capital (€)', angle: -90, position: 'insideLeft', fill: '#cbd5e1' }}
+              stroke="#cbd5e1"
+            />
+            <Tooltip 
+              formatter={(value: number) => formatCurrency(value)}
+              contentStyle={{
+                backgroundColor: '#1e293b',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+                borderRadius: '8px',
+                color: '#f1f5f9',
+              }}
+            />
+            <Legend wrapperStyle={{ color: '#cbd5e1' }} />
             <Line 
               type="monotone" 
               dataKey="capital" 
-              stroke="#1976d2" 
-              strokeWidth={2}
+              stroke="#6366f1" 
+              strokeWidth={3}
               name="Capital"
+              dot={false}
+              activeDot={{ r: 6, fill: '#8b5cf6' }}
             />
           </LineChart>
         </ResponsiveContainer>
       </Paper>
 
-      <Paper sx={{ p: 3 }}>
-        <Typography variant="h6" gutterBottom>
+      <Paper sx={{ p: 3, background: 'rgba(30, 41, 59, 0.5)', backdropFilter: 'blur(10px)' }}>
+        <Typography variant="h6" gutterBottom sx={{ fontWeight: 600, mb: 3 }}>
           Historique des Trades ({results.trades.length})
         </Typography>
         <TableContainer>
           <Table size="small">
             <TableHead>
               <TableRow>
-                <TableCell>Date EntrÃ©e</TableCell>
-                <TableCell>Date Sortie</TableCell>
-                <TableCell>Position</TableCell>
-                <TableCell>Prix EntrÃ©e</TableCell>
-                <TableCell>Prix Sortie</TableCell>
-                <TableCell align="right">P&L</TableCell>
-                <TableCell align="right">P&L %</TableCell>
+                <TableCell sx={{ fontWeight: 600, color: 'text.primary' }}>Date Entrée</TableCell>
+                <TableCell sx={{ fontWeight: 600, color: 'text.primary' }}>Date Sortie</TableCell>
+                <TableCell sx={{ fontWeight: 600, color: 'text.primary' }}>Position</TableCell>
+                <TableCell sx={{ fontWeight: 600, color: 'text.primary' }}>Prix Entrée</TableCell>
+                <TableCell sx={{ fontWeight: 600, color: 'text.primary' }}>Prix Sortie</TableCell>
+                <TableCell align="right" sx={{ fontWeight: 600, color: 'text.primary' }}>P&L</TableCell>
+                <TableCell align="right" sx={{ fontWeight: 600, color: 'text.primary' }}>P&L %</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -148,8 +169,8 @@ export default function ResultsView({ results }: ResultsViewProps) {
         )}
       </Paper>
 
-      <Paper sx={{ p: 3 }}>
-        <Typography variant="h6" gutterBottom>
+      <Paper sx={{ p: 3, background: 'rgba(30, 41, 59, 0.5)', backdropFilter: 'blur(10px)' }}>
+        <Typography variant="h6" gutterBottom sx={{ fontWeight: 600, mb: 3 }}>
           Suggestions d'Optimisation
         </Typography>
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>

@@ -1,13 +1,13 @@
 ﻿"""
 Exemple de robot trader pour BacktestGuru
 
-Ce fichier montre comment crÃ©er un robot trader personnalisÃ©.
+Ce fichier montre comment créer un robot trader personnalisé.
 Le robot doit utiliser les variables suivantes disponibles:
 - data: DataFrame pandas avec les colonnes (open, high, low, close, volume)
 - initial_capital: Capital initial
-- symbol: Symbole tradÃ©
+- symbol: Symbole tradé
 
-Le robot doit dÃ©finir une variable 'results' avec le format suivant:
+Le robot doit définir une variable 'results' avec le format suivant:
 {
     "total_return": float,
     "sharpe_ratio": float,
@@ -24,7 +24,7 @@ Le robot doit dÃ©finir une variable 'results' avec le format suivant:
 import pandas as pd
 import numpy as np
 
-# Exemple de stratÃ©gie simple: Achat et vente basÃ© sur RSI
+# Exemple de stratégie simple: Achat et vente basé sur RSI
 def calculate_rsi(prices, period=14):
     delta = prices.diff()
     gain = (delta.where(delta > 0, 0)).rolling(window=period).mean()
@@ -70,7 +70,7 @@ for i in range(20, len(df)):
             position = 0
             entry_price = 0
     
-    # Nouvelles entrÃ©es
+    # Nouvelles entrées
     if position == 0:
         # Achat si RSI < 30 et prix > SMA
         if rsi < 30 and current_price > sma:
@@ -79,7 +79,7 @@ for i in range(20, len(df)):
     
     equity_curve.append(capital)
 
-# Fermer la position finale si nÃ©cessaire
+# Fermer la position finale si nécessaire
 if position == 1:
     final_price = df['close'].iloc[-1]
     pnl_pct = (final_price - entry_price) / entry_price
@@ -95,7 +95,7 @@ if position == 1:
         'pnl_pct': pnl_pct * 100
     })
 
-# Calcul des mÃ©triques
+# Calcul des métriques
 total_return = (capital - initial_capital) / initial_capital * 100
 winning_trades = [t for t in trades if t['pnl'] > 0]
 losing_trades = [t for t in trades if t['pnl'] < 0]
@@ -114,7 +114,7 @@ peak = np.maximum.accumulate(equity_curve)
 drawdown = (equity_curve - peak) / peak
 max_drawdown = abs(np.min(drawdown)) * 100
 
-# RÃ©sultats
+# Résultats
 results = {
     "total_return": round(total_return, 2),
     "sharpe_ratio": round(sharpe_ratio, 2),

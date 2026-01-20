@@ -14,7 +14,7 @@ try:
     from strategy_parser import StrategyParser
     from optimizer import StrategyOptimizer
 except ImportError:
-    # Si importÃ© depuis la racine
+    # Si importé depuis la racine
     import sys
     import os
     sys.path.insert(0, os.path.dirname(__file__))
@@ -105,7 +105,7 @@ async def get_symbols(market_type: str = "crypto"):
 
 @app.post("/api/backtest", response_model=BacktestResult)
 async def run_backtest(request: BacktestRequest):
-    """ExÃ©cute un backtest avec une description de stratÃ©gie"""
+    """Exécute un backtest avec une description de stratégie"""
     try:
         engine = BacktestEngine(
             symbol=request.symbol,
@@ -116,11 +116,11 @@ async def run_backtest(request: BacktestRequest):
             market_type=request.market_type
         )
         
-        # Parser la stratÃ©gie depuis la description
+        # Parser la stratégie depuis la description
         parser = StrategyParser()
         strategy = parser.parse_description(request.strategy_description or "")
         
-        # ExÃ©cuter le backtest
+        # Exécuter le backtest
         results = engine.run_backtest(strategy)
         
         # Optimisation
@@ -146,12 +146,12 @@ async def upload_robot(file: UploadFile = File(...), symbol: str = None,
                        start_date: str = None, end_date: str = None,
                        initial_capital: float = 10000.0, timeframe: str = "1d",
                        market_type: str = "crypto"):
-    """Upload et exÃ©cute un backtest avec un robot trader (fichier Python)"""
+    """Upload et exécute un backtest avec un robot trader (fichier Python)"""
     if not all([symbol, start_date, end_date]):
         raise HTTPException(status_code=400, detail="symbol, start_date et end_date sont requis")
     
     try:
-        # Lire le fichier uploadÃ©
+        # Lire le fichier uploadé
         content = await file.read()
         robot_code = content.decode("utf-8")
         
@@ -164,7 +164,7 @@ async def upload_robot(file: UploadFile = File(...), symbol: str = None,
             market_type=market_type
         )
         
-        # ExÃ©cuter le backtest avec le robot
+        # Exécuter le backtest avec le robot
         results = engine.run_backtest_from_code(robot_code)
         
         # Optimisation
