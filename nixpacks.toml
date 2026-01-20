@@ -6,7 +6,8 @@ nixPkgs = ["python311", "python311Packages.pip", "nodejs-18_x"]
 [phases.install]
 cmds = [
   "cd frontend && npm install",
-  "pip install --no-cache-dir -r backend/requirements.txt"
+  "python -m venv /opt/venv",
+  ". /opt/venv/bin/activate && pip install --no-cache-dir -r backend/requirements.txt"
 ]
 
 [phases.build]
@@ -20,4 +21,4 @@ cmds = [
 PORT = "8000"
 
 [start]
-cmd = "python main.py"
+cmd = ". /opt/venv/bin/activate && python main.py"
