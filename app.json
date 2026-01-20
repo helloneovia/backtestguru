@@ -1,0 +1,6 @@
+﻿{
+  "name": "BacktestGuru",
+  "scripts": {
+    "start": "python backend/main.py"
+  }
+}

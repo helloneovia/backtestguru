@@ -1,0 +1,21 @@
+﻿[phases.setup]
+nixPkgs = ["python311", "nodejs-18_x"]
+
+[phases.install]
+cmds = [
+  "cd frontend && npm install",
+  "pip install --no-cache-dir -r requirements.txt"
+]
+
+[phases.build]
+cmds = [
+  "cd frontend && npm run build",
+  "mkdir -p backend/static",
+  "cp -r frontend/dist/* backend/static/ 2>/dev/null || true"
+]
+
+[variables]
+PORT = "8000"
+
+[start]
+cmd = "python main.py"

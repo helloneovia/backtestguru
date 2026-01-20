@@ -1,0 +1,16 @@
+﻿node_modules
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv
+.git
+.gitignore
+*.md
+*.bat
+frontend/node_modules
+frontend/dist
+.DS_Store
