@@ -1,9 +1,10 @@
 ﻿[phases.setup]
-nixPkgs = ["python311", "nodejs-18_x"]
+nixPkgs = ["python311", "python311Packages.pip", "nodejs-18_x"]
 
 [phases.install]
 cmds = [
   "cd frontend && npm install",
+  "python -m ensurepip --upgrade",
   "python -m pip install --no-cache-dir -r backend/requirements.txt"
 ]
 
