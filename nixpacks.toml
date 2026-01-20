@@ -4,7 +4,7 @@ nixPkgs = ["python311", "nodejs-18_x"]
 [phases.install]
 cmds = [
   "cd frontend && npm install",
-  "pip install --no-cache-dir -r requirements.txt"
+  "python -m pip install --no-cache-dir -r backend/requirements.txt"
 ]
 
 [phases.build]
