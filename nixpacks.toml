@@ -1,4 +1,6 @@
-﻿[phases.setup]
+﻿# Configuration Nixpacks pour BacktestGuru
+# pip est installÃ© via python311Packages.pip dans nixPkgs, pas besoin d'ensurepip
+[phases.setup]
 nixPkgs = ["python311", "python311Packages.pip", "nodejs-18_x"]
 
 [phases.install]
